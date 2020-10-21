@@ -6,8 +6,13 @@ import * as serviceWorker from "./serviceWorker";
 const App = React.lazy(() => import("./App"));
 
 /* eslint-disable camelcase, no-undef */
-// __webpack_require__.p = publicPath;
-console.log((__webpack_require__.p = "http://localhost:3000/"));
+
+const OG_STATIC_PATH =
+    window.OG_STATIC_PATH ||
+    Array.from(document.querySelectorAll("script"))
+        .pop()
+        .src.replace(/(\/)[^\/]+$/, "$1");
+__webpack_require__.p = OG_STATIC_PATH;
 
 /* eslint-enable */
 
@@ -29,7 +34,7 @@ function bootstrap() {
 
     ReactDOM.render(
         <React.StrictMode>
-            <Suspense fallback={'Loading...'}>
+            <Suspense fallback={"Loading..."}>
                 <App />
             </Suspense>
         </React.StrictMode>,
