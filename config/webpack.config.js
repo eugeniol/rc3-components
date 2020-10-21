@@ -165,15 +165,15 @@ module.exports = function(webpackEnv) {
           pathinfo: isEnvDevelopment,
           // There will be one main bundle, and one file per asynchronous chunk.
           // In development, it does not produce real files.
-          // filename: isEnvProduction
-          //     ? "static/js/[name].[contenthash:8].js"
-          //     : isEnvDevelopment && "static/js/bundle.js",
+          filename: isEnvProduction
+              ? "[name].js"
+              : isEnvDevelopment && "bundle.js",
           // TODO: remove this when upgrading to webpack 5
           futureEmitAssets: true,
           // There are also additional JS chunk files if you use code splitting.
-          // chunkFilename: isEnvProduction
-          //   ? 'static/js/[name].[contenthash:8].chunk.js'
-          //   : isEnvDevelopment && 'static/js/[name].chunk.js',
+          chunkFilename: isEnvProduction
+            ? '[name].[id].chunk.js'
+            : isEnvDevelopment && '[name].chunk.js',
           // webpack uses `publicPath` to determine where the app is being served from.
           // It requires a trailing slash, or the file assets will get an incorrect path.
           // We inferred the "public path" (such as / or /my-project) from homepage.
@@ -556,9 +556,9 @@ module.exports = function(webpackEnv) {
           // Inlines the webpack runtime script. This script is too small to warrant
           // a network request.
           // https://github.com/facebook/create-react-app/issues/5358
-          // isEnvProduction &&
-          //   shouldInlineRuntimeChunk &&
-          //   new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime-.+[.]js/]),
+          isEnvProduction &&
+            shouldInlineRuntimeChunk &&
+            new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime-.+[.]js/]),
           // Makes some environment variables available in index.html.
           // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
           // <link rel="icon" href="%PUBLIC_URL%/favicon.ico">

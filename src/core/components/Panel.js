@@ -24,7 +24,7 @@ export const Panel = ({ header, children, style, draggable }) => {
             defaultPosition={{ x: 5, y: 5 }}
         >
             <Card style={style} inverse={true}>
-                <CardHeader className={draggable ? "drag-handler" : ""}>
+                <CardHeader className={draggable ? "drag-handler" : ""} style={{background:'#003345'}}>
                     {header}
                     <Button
                         color="default"

@@ -1,25 +1,47 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+
+const App = React.lazy(() => import("./App"));
+
+/* eslint-disable camelcase, no-undef */
+// __webpack_require__.p = publicPath;
+console.log((__webpack_require__.p = "http://localhost:3000/"));
+
+/* eslint-enable */
+
 const PANEL_NAME = "rc3-inline-editor";
 let div = document.querySelector("#" + PANEL_NAME);
-if (!div) {
-    div = document.createElement("div");
-    div.id = PANEL_NAME;
-    div.style.position = "fixed";
-    div.style.zIndex = 10000;
-    div.style.top = "0";
-    div.style.left = "0";
-    document.body.appendChild(div);
+
+function bootstrap() {
+    if (!div) {
+        div = document.createElement("div");
+        div.id = PANEL_NAME;
+        div.style.position = "fixed";
+        div.style.zIndex = 10000;
+        div.style.top = "0";
+        div.style.top = "0";
+        div.style.left = "0";
+        document.body.appendChild(div);
+        document.body.style.paddingTop = "100px";
+    }
+
+    ReactDOM.render(
+        <React.StrictMode>
+            <Suspense fallback={'Loading...'}>
+                <App />
+            </Suspense>
+        </React.StrictMode>,
+        div
+    );
 }
-ReactDOM.render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>,
-    div
-);
+
+if (document.readyState == "loading") {
+    window.addEventListener("load", bootstrap);
+} else {
+    bootstrap();
+}
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

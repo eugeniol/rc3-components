@@ -9,8 +9,7 @@ export function useDetectOffers() {
         const el = document.querySelector('script[src$="main.js"]');
         if (!el) return setError("no main.js detected");
         const src = el.getAttribute("src");
-        if (!src.match("static.ordergroove.com"))
-            return setError("no main.js detected");
+        if (!src.match("static.ordergroove.com")) return setError("no main.js");
         fetchMainJs(src).then(setResponse).catch(setError);
     }, []);
     return { response, error };
