@@ -1,3 +1,11 @@
+# offers live editor
+
+to load this in merchant site run the following snippet
+
+```js
+(function(p){var s=document.createElement("script");s.src=p;document.body.appendChild(s)})('http://staging.static.ordergroove.com/@ordergroove/offers-live-editor/latest/dist/main.js');
+```
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
